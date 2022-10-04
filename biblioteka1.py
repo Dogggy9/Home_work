@@ -26,12 +26,12 @@ class Book:
 
     @title.setter
     def title(self, title):
-        assert type(title) is type(str()), "не строка"
+        assert type(title) is str, "не строка"
         self.__title = title
 
     def set_year(self, year):
-        assert type(year) is type(int()), "не число"
-        self.__year = year
+        if isinstance(year, int):
+            self.__year = year
 
 
 class Library:
