@@ -83,7 +83,7 @@ def handle(call: CallbackQuery):
         anekdot, amount = get_about.get_about_anekdot(*url.anekdot.values())
         bot.send_message(call.message.chat.id, f'{anekdot}\nосталось {amount} анекдотов',
                          reply_markup=AnekdotKeyboards.get_base_keyboard())
-        write_json(call.from_user)
+        # write_json(call.from_user)
         print(call.from_user)
     elif call.data == Callbacks.GET_HISTORY:
         history, amount = get_about.get_about_hisrory(*url.history.values())
@@ -115,6 +115,6 @@ def webhook():
 
 if __name__ == '__main__':
     bot.remove_webhook()
-    bot.infinity_polling()
-    # bot.set_webhook(WEBHOOK_URL + "/" + TOKEN)
-    # app.run(host=WEBHOOK_HOST, port=WEBHOOK_PORT)
+    # bot.infinity_polling()
+    bot.set_webhook(WEBHOOK_URL + "/" + TOKEN)
+    app.run(host=WEBHOOK_HOST, port=WEBHOOK_PORT)
