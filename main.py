@@ -115,6 +115,6 @@ def webhook():
 
 if __name__ == '__main__':
     bot.remove_webhook()
-    # bot.infinity_polling()
-    bot.set_webhook(WEBHOOK_URL + "/" + TOKEN)
-    app.run(host=WEBHOOK_HOST, port=WEBHOOK_PORT)
+    bot.infinity_polling()
+    # bot.set_webhook(WEBHOOK_URL + "/" + TOKEN)
+    # app.run(host=WEBHOOK_HOST, port=WEBHOOK_PORT)
