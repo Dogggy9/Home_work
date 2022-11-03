@@ -9,7 +9,7 @@ class ParserService:
     @staticmethod
     def parser(url: str):
         r = requests.get('https://www.anekdot.ru' + url)
-        soup = bs(r.text, 'html.parser')
+        soup = bs(r.text, 'soup.parser')
         texts = soup.find_all('div', class_='text')
         date = soup.find_all('div', class_='subdate')
         print(date)
@@ -21,7 +21,7 @@ class ParserService:
     def vchera_zavtra(url: str):
         href = {}
         r = requests.get('https://www.anekdot.ru' + url)
-        soup = bs(r.text, 'html.parser')
+        soup = bs(r.text, 'soup.parser')
         texts = soup.find_all('div', class_='text')
         date = soup.find_all('div', class_='subdate')
         date = date[0].text
@@ -41,8 +41,8 @@ class ParserService:
 if __name__ == '__main__':
     p = ParserService()
     print(p.vchera_zavtra('/release/anekdot/day/2022-10-31/'))  # анекдоты
-    print(p.vchera_zavtra('/an/an2211/o221101;100.html'))  # истории
-    a, *b = p.vchera_zavtra('/an/an2211/a221101;100.html')  # афоризмы
+    print(p.vchera_zavtra('/an/an2211/o221101;100.soup'))  # истории
+    a, *b = p.vchera_zavtra('/an/an2211/a221101;100.soup')  # афоризмы
     # print(p.parser(*url.anekdot.values()))
     print(a)
     print(b)
