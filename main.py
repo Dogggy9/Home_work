@@ -23,27 +23,6 @@ session = Session(bot)
 session.load()
 
 
-# anekdot = get_about.get_about_anekdot()
-# # anekdot = anekdots.pop(0)
-# print(len(get_about.anekdots))
-# sys.exit()
-
-URL = 'https://api.telegram.org/bot5721389141:AAE3hEZfKPk5NsfbG-oDnIQF4XDYLH41IM8/'
-
-# def write_json(data, filename='answer.json'):
-#     with open(filename, 'a') as f:
-#         json.dump(data, f, indent=2, ensure_ascii=False)
-#
-# def read_json():
-#     with open('answer.json', 'r') as json_file:
-#         users = json.load(json_file)
-#         return users
-#
-# def main():
-#     r = requests.get(URL + 'getMe')
-#     write_json(r.json())
-
-# main()
 
 def create_state_for_user(context: Session, id: int):
     args = ()
@@ -63,11 +42,7 @@ def start(message: Message):
 
     state = create_state_for_user(session, user_id)
     state.handle(message)
-    # bot.delete_message(chat_id=message.chat.id, message_id=message.id)
-
-    # keyboard = AnekdotKeyboards.get_base_keyboard()
-    # bot.send_message(message.chat.id, 'Выбери', reply_markup=keyboard)
-    # write_json(message.json)
+    bot.delete_message(chat_id=message.chat.id, message_id=message.id)
 
 @bot.message_handler(func=lambda message: True)
 def handle_message(message: Message):
@@ -83,10 +58,9 @@ def handle(call: CallbackQuery):
         anekdot, amount = get_about.get_about_anekdot(*url.anekdot.values())
         bot.send_message(call.message.chat.id, f'{anekdot}\nосталось {amount} анекдотов',
                          reply_markup=AnekdotKeyboards.get_base_keyboard())
-        # write_json(call.from_user)
         print(call.from_user)
     elif call.data == Callbacks.GET_HISTORY:
-        history, amount = get_about.get_about_hisrory(*url.history.values())
+        history, amount = get_about.get_about_history(*url.history.values())
         bot.send_message(call.message.chat.id, f'{history}\nосталось {amount} историй',
                          reply_markup=AnekdotKeyboards.get_base_keyboard())
     elif call.data == Callbacks.GET_APHORISM:

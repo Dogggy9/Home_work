@@ -11,37 +11,27 @@ class GetAbout:
         self.aphorism = []
         self.old_aphorism = []
 
+    def get_about(self, url: str, item: list, old_item: list):
+        if not item:
+            item = ParserService.parser(url)
+        amount = len(item) - 1
+        text = item.pop(0)
+        old_item.append(text)
+        if not amount:
+            item = old_item
+            old_item = []
+        return item, old_item, amount, text
+
     def get_about_anekdot(self, url: str):
-        if not self.anekdots:
-            self.anekdots = ParserService.parser(url)
-        amountA = len(self.anekdots) - 1
-        anekdot = self.anekdots.pop(0)
-        self.old_anekdots.append(anekdot)
-        if not amountA:
-            self.anekdots = self.old_anekdots
-            self.old_anekdots = []
+        self.anekdots, self.old_anekdots, amountA, anekdot = self.get_about(url, self.anekdots, self.old_anekdots)
         return anekdot, amountA
 
-    def get_about_hisrory(self, url: str):
-        if not self.history:
-            self.history = ParserService.parser(url)
-        amountH = len(self.history) - 1
-        history = self.history.pop(0)
-        self.old_history.append(history)
-        if not amountH:
-            self.history = self.old_history
-            self.old_history = []
+    def get_about_history(self, url: str):
+        self.history, self.old_history, amountH, history = self.get_about(url, self.history, self.old_history)
         return history, amountH
 
     def get_about_aphorism(self, url: str):
-        if not self.aphorism:
-            self.aphorism = ParserService.parser(url)
-        amountAp = len(self.aphorism) - 1
-        aphorism = self.aphorism.pop(0)
-        self.old_aphorism.append(aphorism)
-        if not amountAp:
-            self.aphorism = self.old_aphorism
-            self.old_aphorism = []
+        self.aphorism, self.old_aphorism, amountAp, aphorism = self.get_about(url, self.aphorism, self.old_aphorism)
         return aphorism, amountAp
 
 
